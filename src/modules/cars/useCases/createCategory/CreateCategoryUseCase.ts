@@ -1,5 +1,4 @@
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
-import { ICategoriesRepository } from "../repositories/ICategoriesRepository";
+import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
 interface IRequest {
     name: string;
@@ -13,10 +12,10 @@ interface IRequest {
  * [x] - Retornar algo
  */
 
-class CreateCategoryService {
+class CreateCategoryUseCase {
     constructor(private categoriesRepository: ICategoriesRepository) {}
 
-    execute({ description, name }: IRequest) {
+    execute({ description, name }: IRequest): void {
         const categoryAlreadyExists = this.categoriesRepository.findByName(name);
 
         if (categoryAlreadyExists) {
@@ -27,4 +26,4 @@ class CreateCategoryService {
     }
 }
 
-export { CreateCategoryService };
+export { CreateCategoryUseCase };
