@@ -27,6 +27,7 @@ class ImportCategoryUseCase {
                 })
             })
             .on("end", () => {
+                fs.promises.unlink(file.path);
                 resolve(categories);
             })
             .on("error", (err) => {
@@ -47,7 +48,7 @@ class ImportCategoryUseCase {
                 this.categoriesRepository.create({
                     name,
                     description,
-                })
+                });
             }
         })
     }
