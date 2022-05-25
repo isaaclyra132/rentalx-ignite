@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cars {
+  id            String   @id @default(uuid())
+  name          String
+  description   String
+  daily_rate    String
+  available     Boolean
+  license_plate String
+  fine_amount   String
+  brand         String
+  created_at    DateTime @default(now())
+
+  categories    categories? @relation(fields: [categories_id], references: [id])
+  categories_id String?
+
+  cars_image cars_image[]
+  rentals    rentals[]
+
+  specifications_cars specifications_cars[]
+}
+
+model categories {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  created_at  DateTime @default(now())
+
+  cars cars[]
+
+}
+
+model cars_image {
+  id         String   @id @default(uuid())
+  car_id     String
+  image_name String
+  created_at DateTime @default(now())
+
+  cars    cars?   @relation(fields: [cars_id], references: [id])
+  cars_id String?
+}
+
+model specifications {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  created_at  DateTime @default(now())
+}
+
+model specifications_cars {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+
+  cars    cars   @relation(fields: [card_id], references: [id])
+  card_id String
+
+}
+
+model rentals {
+  id                   String   @id @default(uuid())
+  start_date           DateTime
+  end_date             DateTime
+  expected_return_date DateTime
+  total                Float
+  created_at           DateTime @default(now())
+  updated_at           DateTime @default(now()) @updatedAt
+
+  cars   cars   @relation(fields: [car_id], references: [id])
+  car_id String
+}
