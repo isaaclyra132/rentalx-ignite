@@ -15,7 +15,7 @@ class User {
 
     isAdmin?: boolean;
 
-    avatar: string;
+    avatar?: string;
 
     created_at: Date;
 
