@@ -86,9 +86,15 @@
                 "description": "Upload a new category from archive",
                 "requestBody": {
                     "content": {
-                        "application/octet-stream": {
+                        "multipart/form-data": {
                             "schema": {
-                                "type": "string"
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
                             }
                         }
                     }
