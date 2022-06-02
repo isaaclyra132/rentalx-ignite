@@ -18,6 +18,17 @@ class UsersRepository implements IUsersRepository {
         })
     }
 
+    async update(email: string, avatar: string): Promise<void> {
+        await prisma.users.update({
+            where: {
+                email
+            },
+            data: {
+                avatar
+            }
+        })
+    }
+
     async findByEmail(email: string): Promise<User> {
         const user = await prisma.users.findUnique({
             where: {
